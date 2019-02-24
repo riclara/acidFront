@@ -1,0 +1,24 @@
+version: "2"
+
+services:
+  acidfront:
+    container_name: acidfront
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ".:/usr/src/app"
+      - "/usr/src/app/node_modules"
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+    labels:
+      - "traefik.backend=acidfront"
+      - "traefik.frontend.rule=PathPrefixStrip: /"
+    networks:
+      - traefik
+networks:
+  traefik:
+    external:
+      name: acidbalancer_webgateway
