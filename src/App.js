@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react'
 import Geocode from "react-geocode"
 import ReactNotification from "react-notifications-component"
+import cap from './cap'
 import "react-notifications-component/dist/theme.css"
 
 Geocode.setApiKey("AIzaSyBn4o0Z-bBXL_jhcFwdX8gpa0L20UAmrj8")
@@ -27,6 +28,7 @@ export class MapContainer extends Component {
     longitude:0,
     temperature: '',
     country: '',
+    capital: '',
     activeMarker: {},
     showingInfoWindow: false,
     selectedPlace: {}
@@ -53,6 +55,7 @@ export class MapContainer extends Component {
         const latitude = countryObj.geometry.location.lat
         const longitude = countryObj.geometry.location.lng
         const country = countryObj.formatted_address
+        const capital = cap[countryObj.address_components[0].short_name] || ''
         fetch(`${window.location.href}api/v1/${encodeURI(country)}/${latitude}/${longitude}`)
           .then((response) => {
             return response.json()
@@ -60,11 +63,12 @@ export class MapContainer extends Component {
           .then((data) => {
             this.setState({
               country,
+              capital,
               latitude,
               longitude,
               temperature: data.currently.temperature
             })
-            this.addNotification(this.state.country, `Temperaure: ${this.state.temperature}`, 'success')
+            this.addNotification(`${this.state.country} - ${this.state.capital}`, `Temperaure: ${this.state.temperature}`, 'success')
           }).catch(reason => {
             this.addNotification('Error', 'Contact us', 'danger')
           })
