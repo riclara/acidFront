@@ -21,4 +21,4 @@ services:
 networks:
   traefik:
     external:
-      name: acidbalancer_webgateway
+      name: acidloadb_webgateway
