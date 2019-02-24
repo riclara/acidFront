@@ -4,15 +4,10 @@
 ## Build Setup
 
 ``` bash
-# install dependencies
-npm install
+# Execute for development
+docker-compose up --build
 
-# Run development
-npm run dev
+# Execute for production
+docker-compose -f docker-compose-prd.yml up -d --build
 
-# build and run for production
-npm run prd
-
-# run all tests
-npm test
 ```

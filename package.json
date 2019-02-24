@@ -11,8 +11,6 @@
     "react-scripts": "2.1.5"
   },
   "scripts": {
-    "dev": "docker-compose up --build",
-    "prd": "docker-compose -f docker-compose-prd.yml up -d --build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
